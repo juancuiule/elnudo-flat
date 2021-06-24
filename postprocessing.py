@@ -17,4 +17,4 @@ if __name__ == "__main__":
     for x in range(0, int(values.max())):
         pairs.append([x, f(x)[0]])
     
-    pd.DataFrame(pairs).to_csv("change-blindness.csv", header=False)
+    pd.DataFrame(pairs).to_csv("change-blindness.csv", header=["time", "area"])
