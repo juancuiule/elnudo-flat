@@ -1,14 +1,14 @@
 const contents = await Deno.readTextFile("./data.json");
 console.log(contents);
 
-const pip_install = Deno.run({
+const pipInstall = Deno.run({
   cmd: ["python", "-m", "pip", "install", "-r", "requirements.txt"],
 });
 
-await pip_install.status();
+await pipInstall.status();
 
-const py_run = Deno.run({
+const pyRun = Deno.run({
   cmd: ['python', './postprocessing.py'],
 });
 
-await py_run.status();
+await pyRun.status();
