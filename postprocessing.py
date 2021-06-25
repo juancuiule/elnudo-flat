@@ -23,6 +23,4 @@ if __name__ == "__main__":
         pairs.append([x, f(x)[0], int(round(np.average(values))), len(values)])    
 
     pd.DataFrame(pairs).to_csv("change-blindness.csv", index=False, header=["time", "area", "average", "total"])
-    
-    fig.savefig('line plot.jpg', bbox_inches='tight', dpi=150)
 
