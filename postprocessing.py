@@ -13,15 +13,18 @@ if __name__ == "__main__":
     values = np.array([])
     for x in json["data"]:
         time = x["time"]
-        if time < MAX_TIME and time > MIN_TIME:
-            values = np.append(values, x["time"] / 1000)
+        if "clicks" in x.keys() time < MAX_TIME and time > MIN_TIME:
+            values = np.append(values, time / 1000)
     
     f = stats.gaussian_kde(values, 0.5)
 
     pairs = []
+    average = int(round(np.average(values)))
+    total = len(values)
     for x in range(0, int(values.max() + 200)):
-        pairs.append([x, f(x)[0], int(round(np.average(values))), len(values)])
-        if x > values.mean() and f(x)[0] < 0.0001 and x % 60 == 0:
+        y = f(x)[0]
+        pairs.append([x, y, average, total])
+        if x > average and y < 0.0001 and x % 60 == 0:
             break;
 
     pd.DataFrame(pairs).to_csv("change-blindness.csv", index=False, header=["time", "area", "average", "total"])
