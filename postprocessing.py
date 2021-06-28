@@ -4,7 +4,7 @@ from scipy import stats
 
 # Simple script to show the parameters sent to the script, and generate a dummy file
 
-MIN_TIME = 1000 * 30 # 30 secs
+MIN_TIME = 1000 * 10 # 10 secs
 MAX_TIME = 1000 * 60 * 6 # 6 mins
 
 if __name__ == "__main__":
