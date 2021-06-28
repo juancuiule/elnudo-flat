@@ -13,7 +13,7 @@ if __name__ == "__main__":
     values = np.array([])
     for x in json["data"]:
         time = x["time"]
-        if "clicks" in x.keys() time < MAX_TIME and time > MIN_TIME:
+        if "clicks" in x.keys() and time < MAX_TIME and time > MIN_TIME:
             values = np.append(values, time / 1000)
     
     f = stats.gaussian_kde(values, 0.5)
