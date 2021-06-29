@@ -5,7 +5,8 @@ from scipy import stats
 # Simple script to show the parameters sent to the script, and generate a dummy file
 
 MIN_TIME = 1000 * 10 # 10 secs
-MAX_TIME = 1000 * 60 * 6 # 6 mins
+MAX_TIME = 1000 * 60 * 4 # 4 mins
+BW_WIDTH = 0.15
 
 if __name__ == "__main__":
     json = pd.read_json('./data.json')
@@ -22,7 +23,7 @@ if __name__ == "__main__":
         if "clicks" in x.keys() and time < MAX_TIME and time > MIN_TIME:
             values = np.append(values, time / 1000)
     
-    f = stats.gaussian_kde(values, 0.5)
+    f = stats.gaussian_kde(values, BW_WIDTH)
 
     pairs = []
     average = int(round(np.average(values)))
@@ -34,3 +35,9 @@ if __name__ == "__main__":
             break;
 
     pd.DataFrame(pairs).to_csv("change-blindness.csv", index=False, header=["time", "area", "average", "total"])
+    
+    f.covariance_factor = lambda : BW_WIDTH
+    f._compute_covariance()
+    rango = range(0, pairs[-1][0])
+    plt.plot(rango, f(rango))
+    plt.savefig("curva.png")
