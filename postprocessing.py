@@ -37,6 +37,6 @@ if __name__ == "__main__":
     
     f.covariance_factor = lambda : BW_WIDTH
     f._compute_covariance()
-    rango = range(0, MAX_TIME)
+    rango = range(0, int(MAX_TIME / 1000))
     plt.plot(rango, f(rango))
     plt.savefig("curva.png")
