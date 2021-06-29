@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy import stats
+import matplotlib.pyplot as plt
 
 # Simple script to show the parameters sent to the script, and generate a dummy file
 
