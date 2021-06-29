@@ -20,8 +20,8 @@ if __name__ == "__main__":
 
     values = np.array([])
     for x in json["data"]:
-        time = x["time"]
-        if "clicks" in x.keys() and time < MAX_TIME and time > MIN_TIME:
+        if "clicks" in x.keys() and "time" in x.keys() and "tip" in x.keys():
+            time = x["time"]
             values = np.append(values, time / 1000)
     
     f = stats.gaussian_kde(values, BW_WIDTH)
@@ -29,16 +29,14 @@ if __name__ == "__main__":
     pairs = []
     average = int(round(np.average(values)))
     total = len(values)
-    for x in range(0, int(values.max() + 200)):
+    for x in range(0, int(MAX_TIME / 1000)):
         y = f(x)[0]
         pairs.append([x, y, average, total])
-        if x > average and y < 0.0001 and x % 60 == 0:
-            break;
 
     pd.DataFrame(pairs).to_csv("change-blindness.csv", index=False, header=["time", "area", "average", "total"])
     
     f.covariance_factor = lambda : BW_WIDTH
     f._compute_covariance()
-    rango = range(0, pairs[-1][0])
+    rango = range(0, MAX_TIME)
     plt.plot(rango, f(rango))
     plt.savefig("curva.png")
