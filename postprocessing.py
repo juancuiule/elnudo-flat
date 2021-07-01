@@ -9,6 +9,8 @@ MIN_TIME = 1000 * 10 # 10 secs
 MAX_TIME = 1000 * 60 * 4 # 4 mins
 BW_WIDTH = 0.15
 
+TOP_LIMIT = 1000 * 60 * 60 * 5 # 5 horas
+
 if __name__ == "__main__":
     json = pd.read_json('./data.json')
     
@@ -22,7 +24,8 @@ if __name__ == "__main__":
     for x in json["data"]:
         if "clicks" in x.keys() and "time" in x.keys() and "tip" in x.keys():
             time = x["time"]
-            values = np.append(values, time / 1000)
+            if time < TOP_LIMIT:
+                values = np.append(values, time / 1000)
     
     f = stats.gaussian_kde(values, BW_WIDTH)
 
