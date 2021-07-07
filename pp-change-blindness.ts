@@ -5,7 +5,7 @@ const pipInstall = Deno.run({
 await pipInstall.status();
 
 const pyRun = Deno.run({
-  cmd: ['python', './postprocessing.py'],
+  cmd: ['python', './pp-change-blindness.py'],
 });
 
 await pyRun.status();
