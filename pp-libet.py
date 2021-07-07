@@ -19,13 +19,28 @@ if __name__ == "__main__":
     df = pd.DataFrame(raw, columns=["pc", "user", "won"])
 
     values = pd.Series(df["user"]).value_counts()
+    total_partidas = len(df)
+    ganadas_pc = df["won"].value_counts()["pc"]
+    porcentaje_pc_win = int(ganadas_pc / total_partidas * 100)
     histograma = []
+    acum = 0
     for x in range(0, 51):
+        p_con_menos_x = int(acum / total_partidas * 100)
         if x in values.keys():
-            histograma.append([x, values[x]])
+            p_con_x = values[x]
+            histograma.append([x, p_con_x, total_partidas, porcentaje_pc_win, p_con_menos_x])
+            acum += p_con_x
         else:
-            histograma.append([x, 0])
-    pd.DataFrame(histograma).to_csv("libet.csv", index=False, header=["puntos", "partidas"])
+            histograma.append([x, 0, total_partidas, porcentaje_pc_win, p_con_menos_x])
+
+    header = [
+        "puntos",
+        "partidas",
+        "total_partidas",
+        "porcentaje_pc",
+        "porcentaje_con_menos"
+    ]
+    pd.DataFrame(histograma).to_csv("libet.csv", index=False, header=header)
 
     df["user"].hist(grid=False, bins=50)
     plt.xlabel('Puntos usuarie')
