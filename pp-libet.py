@@ -16,6 +16,17 @@ if __name__ == "__main__":
                 raw.append([pc, user, won])
     pd.DataFrame(raw).to_csv("libet-raw-data.csv", index=True, header=["pc", "user", "won"])
 
+    df = pd.DataFrame(raw, columns=["pc", "user", "won"])
+
+    values = pd.Series(df["user"]).value_counts()
+    histograma = []
+    for x in range(0, 51):
+        if x in values.keys():
+            histograma.append([x, values[x]])
+        else:
+            histograma.append([x, 0])
+    pd.DataFrame(histograma).to_csv("libet.csv", index=False, header=["puntos", "partidas"])
+
     df["user"].hist(grid=False, bins=50)
     plt.xlabel('Puntos usuarie')
     plt.ylabel('Número de partidas')
