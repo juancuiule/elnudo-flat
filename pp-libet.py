@@ -12,10 +12,10 @@ if __name__ == "__main__":
             pc = x["pc"]
             user = x["user"]
             won = x["won"]
-            if pc <= 50 and user <= 50 and (won == "pc" or won == "user"):
+            if pc > 0 and pc <= 50 and user <= 50 and (won == "pc" or won == "user"):
                 raw.append([pc, user, won])
     pd.DataFrame(raw).to_csv("libet-raw-data.csv", index=True, header=["pc", "user", "won"])
-
+    
     df = pd.DataFrame(raw, columns=["pc", "user", "won"])
 
     values = pd.Series(df["user"]).value_counts()
