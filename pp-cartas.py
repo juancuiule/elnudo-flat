@@ -3,7 +3,7 @@ import numpy as np
 import json
 
 if __name__ == "__main__":
-    jsonCartas = pd.read_json('./elnudo-cartas.json')
+    jsonCartas = pd.read_json('./cartas-contadas-data.json')
 
     keys = ["first", "second", "third", "allCorrect", "firstTime"]
 
