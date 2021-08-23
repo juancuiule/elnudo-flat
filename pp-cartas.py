@@ -30,10 +30,10 @@ if __name__ == "__main__":
     mean = df.mean() * 100
 
     data = {
-        'first': mean['first'],
-        'second': mean['second'],
-        'third': mean['third'],
-        'allCorrect': mean['allCorrect'],
+        'first': round(mean['first'], 2),
+        'second': round(mean['second'], 2),
+        'third': round(mean['third'], 2),
+        'allCorrect': round(mean['allCorrect'], 2),
         'total': len(df),
         'totalAllCorrect': len(df.loc[df['allCorrect']])
     }
