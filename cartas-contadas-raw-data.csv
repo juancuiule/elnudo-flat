@@ -3017,3 +3017,6 @@
 3015,False,True,False,False
 3016,False,True,False,False
 3017,False,False,True,False
+3018,True,True,False,False
+3019,True,False,True,False
+3020,True,True,True,True
